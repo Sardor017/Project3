@@ -50,6 +50,23 @@ The dashboard is built on SQL queries that utilize Common Table Expressions (CTE
 - **Employee Data**: A CTE that joins employee information with pay history and department history, providing a comprehensive view of each employee's details.
 - **Sales Order Data**: Another CTE that aggregates sales order details with product, category, and territory information.
 - **Purchase Order Data**: A final query that links purchase order headers with vendor details, shipping methods, and line item information.
+## Dashboards
+
+![](Dashboard_1.png)
+
+![](Dashboard_2.png)
+
+![](Dashboard_3.png)
+
+![](Dashboard_4.png)
+
+![](Dashboard_5.png)
+
+![](Dashboard_6.png)
+
+![](Dashboard_7.png)
+
+![](Dashboard_8.png)
 
 ## Usage
 
