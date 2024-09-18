@@ -1,5 +1,7 @@
 AdventureWorks2022 Dashboard
+
 Overview
+
 The AdventureWorks2022 Dashboard is designed to provide comprehensive insights into the business operations of AdventureWorks, covering human resources, sales, and purchasing activities. This dashboard leverages data from multiple tables within the AdventureWorks2022 database to help stakeholders analyze employee performance, sales trends, order details, and purchasing history.
 
 Data Sources
