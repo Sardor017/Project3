@@ -1,0 +1,30 @@
+SELECT 
+    poh.[PurchaseOrderID],
+    poh.[EmployeeID],
+    v.[Name] AS VendorName,
+    v.[CreditRating] AS VendorCreditRating,
+    sm.[Name] AS ShipMethodName,
+    sm.[ShipBase],
+    sm.[ShipRate],
+    poh.[SubTotal],
+    poh.[TaxAmt],
+    poh.[Freight],
+    poh.[TotalDue],
+    pod.[OrderQty],
+    pod.[ProductID],
+    pod.[UnitPrice],
+    pod.[LineTotal]
+FROM 
+    [AdventureWorks2022].[Purchasing].[PurchaseOrderHeader] AS poh
+-- Join with Vendor table
+INNER JOIN 
+    [AdventureWorks2022].[Purchasing].[Vendor] AS v
+    ON poh.[VendorID] = v.[BusinessEntityID]
+-- Join with ShipMethod table
+INNER JOIN 
+    [AdventureWorks2022].[Purchasing].[ShipMethod] AS sm
+    ON poh.[ShipMethodID] = sm.[ShipMethodID]
+-- Join with PurchaseOrderDetail table
+INNER JOIN 
+    [AdventureWorks2022].[Purchasing].[PurchaseOrderDetail] AS pod
+    ON poh.[PurchaseOrderID] = pod.[PurchaseOrderID];

@@ -1,0 +1,75 @@
+WITH EmployeeCTE AS (
+    SELECT 
+        e.[BusinessEntityID],
+        e.[OrganizationLevel],
+        e.[JobTitle],
+        YEAR(e.[BirthDate]) AS [BirthYear],
+        e.[MaritalStatus],
+        e.[Gender],
+        e.[HireDate],
+        e.[SalariedFlag],
+        e.[VacationHours],
+        e.[SickLeaveHours],
+        eph.[Rate],
+        eph.[PayFrequency]
+    FROM 
+        [AdventureWorks2022].[HumanResources].[Employee] AS e
+    LEFT JOIN
+        [AdventureWorks2022].[HumanResources].[EmployeePayHistory] AS eph
+        ON e.[BusinessEntityID] = eph.[BusinessEntityID]
+),
+EmployeeDepartmentHistoryCTE AS (
+    SELECT 
+        edh.[BusinessEntityID],
+        d.[Name] AS [DepartmentName],
+        d.[GroupName] AS [DepartmentGroupName],  -- исправлена опечатка
+        sh.[Name] AS [ShiftName],
+        edh.[StartDate],
+        edh.[EndDate]
+    FROM 
+        [AdventureWorks2022].[HumanResources].[EmployeeDepartmentHistory] AS edh
+    LEFT JOIN
+        [AdventureWorks2022].[HumanResources].[Department] AS d
+        ON edh.[DepartmentID] = d.[DepartmentID]
+    LEFT JOIN
+        [AdventureWorks2022].[HumanResources].[Shift] AS sh
+        ON edh.[ShiftID] = sh.[ShiftID]
+),
+HumanResourcesCTE AS (
+    SELECT 
+        edh.*,
+        e.[OrganizationLevel],
+        e.[JobTitle],
+        e.[BirthYear],
+        e.[MaritalStatus],
+        e.[Gender],
+        e.[HireDate],
+        e.[SalariedFlag],
+        e.[VacationHours],
+        e.[SickLeaveHours],
+        e.[Rate],
+        e.[PayFrequency]
+    FROM 
+        EmployeeDepartmentHistoryCTE AS edh
+    LEFT JOIN 
+        EmployeeCTE AS e
+    ON 
+        edh.[BusinessEntityID] = e.[BusinessEntityID]
+)
+
+	SELECT sp.[BusinessEntityID]
+      ,st.[Name] AS TerritoryName
+	  ,st.[Group] AS TerritoryGroup
+      ,[SalesQuota]
+      ,[Bonus]
+      ,[CommissionPct]
+      ,sp.[SalesYTD]
+      ,sp.[SalesLastYear]
+	  ,hr_cte.*
+	FROM [AdventureWorks2022].[Sales].[SalesPerson] AS sp
+	LEFT JOIN 
+		[AdventureWorks2022].[Sales].[SalesTerritory] AS st
+		ON sp.[TerritoryID] = st.[TerritoryID]
+	LEFT JOIN
+		HumanResourcesCTE AS hr_cte
+		ON sp.[BusinessEntityID] = hr_cte.[BusinessEntityID]
