@@ -1,0 +1,7 @@
+SELECT [CurrencyRateID]
+      ,[CurrencyRateDate]
+      ,[FromCurrencyCode]
+      ,[ToCurrencyCode]
+      ,[AverageRate]
+      ,[EndOfDayRate]
+  FROM [AdventureWorks2022].[Sales].[CurrencyRate]
